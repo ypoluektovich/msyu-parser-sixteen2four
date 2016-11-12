@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'org.msyu.parser'
+ext.pkgname = 'sixteen2four'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'org.testng:testng:6.9.+'
+}
+
+test {
+    useTestNG()
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        main(MavenPublication) {
+            from components.java
+            artifactId pkgname
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
