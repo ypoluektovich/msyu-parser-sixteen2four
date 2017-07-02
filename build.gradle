@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.7.3'
 }
 
 group 'org.msyu.parser'
@@ -34,6 +35,28 @@ publishing {
             artifact sourceJar {
                 classifier "sources"
             }
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ['main']
+    dryRun = false
+    publish = false
+    pkg {
+        repo = 'msyu'
+        name = 'msyu-parser-sixteen2four'
+        desc = 'A push-style characters-to-codepoints converter for Java'
+        websiteUrl = 'https://github.com/ypoluektovich/msyu-parser-sixteen2four'
+        issueTrackerUrl = 'https://github.com/ypoluektovich/msyu-parser-sixteen2four/issues'
+        vcsUrl = 'https://github.com/ypoluektovich/msyu-parser-sixteen2four.git'
+        licenses = ['MPL-2.0']
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+            vcsTag = 'v' + project.version
         }
     }
 }
